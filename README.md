@@ -55,12 +55,37 @@ export default {
 };
 ```
 
+##### Interpolation
+
+You can add keys for interpolation
+
+```javascript
+export default {
+  age: 'You are %@1 years old.'
+};
+```
+
+The rules for interpolation follow the same from
+`[Ember.String.fmt](http://emberjs.com/api/classes/Ember.String.html#method_fmt)`
+
 #### Helper
 
 You can access the translations in your app with the `t` helper:
 
 ```handlebars
 {{t 'home.title'}}
+```
+
+Computed properties for the path are also supported:
+
+```handlebars
+{{t age}}
+```
+
+If the value has interpolation keys you can pass those values:
+
+```handlebars
+{{t colors colorOne colorTwo}}
 ```
 
 ## Authors ##
