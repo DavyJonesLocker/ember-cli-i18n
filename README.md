@@ -88,6 +88,21 @@ If the value has interpolation keys you can pass those values:
 {{t colors colorOne colorTwo}}
 ```
 
+#### Utility
+
+The `t` function can be used outside of templates as a utility function:
+
+```javascript
+import Ember from 'ember';
+import t from 'ember-cli-i18n';
+
+export default Ember.Object.extend({
+  foo: function() {
+    return t('foo.bar');
+  }
+});
+```
+
 ## Authors ##
 
 * [Brian Cardarella](http://twitter.com/bcardarella)

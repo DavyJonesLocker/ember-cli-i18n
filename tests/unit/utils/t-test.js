@@ -1,4 +1,4 @@
-import t from 'ember-cli-i18n/helpers/t';
+import t from 'ember-cli-i18n/utils/t';
 import Ember from 'ember';
 
 var container;
