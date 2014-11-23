@@ -1,6 +1,6 @@
-# Easy i18n
+# Ember CLI i18n
 
-[![Build](https://travis-ci.org/dockyard/easy-i18n.svg?branch=master)](https://travis-ci.org/dockyard/easy-i18n)
+[![Build](https://travis-ci.org/dockyard/ember-cli-i18n.svg?branch=master)](https://travis-ci.org/dockyard/ember-cli-i18n)
 
 ## About ##
 
@@ -9,7 +9,7 @@ Simple Internationalization support for ember-cli apps.
 ## Install ##
 
 ```bash
-npm install easy-i18n --save-dev
+npm install ember-cli-i18n --save-dev
 ```
 
 ## Usage ##
@@ -67,7 +67,7 @@ You can access the translations in your app with the `t` helper:
 
 * [Brian Cardarella](http://twitter.com/bcardarella)
 
-[We are very thankful for the many contributors](https://github.com/dockyard/easy-i18n/graphs/contributors)
+[We are very thankful for the many contributors](https://github.com/dockyard/ember-cli-i18n/graphs/contributors)
 
 ## Versioning ##
 
@@ -76,7 +76,7 @@ This library follows [Semantic Versioning](http://semver.org)
 ## Want to help? ##
 
 Please do! We are always looking to improve this gem. Please see our
-[Contribution Guidelines](https://github.com/dockyard/easy-i18n/blob/master/CONTRIBUTING.md)
+[Contribution Guidelines](https://github.com/dockyard/ember-cli-i18n/blob/master/CONTRIBUTING.md)
 on how to properly submit issues and pull requests.
 
 ## Legal ##
