@@ -37,15 +37,15 @@ Generate a new locale file:
 ember g locale en
 ```
 
-The file will be added to `app/locales'
+The file will be added to `app/locales`
 
 ```
-app/
+app
 └── locales
     └── en.js
 ```
 
-The content export a single POJO:
+Then export a single POJO:
 
 ```javascript
 export default {
@@ -66,7 +66,7 @@ export default {
 ```
 
 The rules for interpolation follow the same from
-`[Ember.String.fmt](http://emberjs.com/api/classes/Ember.String.html#method_fmt)`
+[`Ember.String.fmt`](http://emberjs.com/api/classes/Ember.String.html#method_fmt)
 
 #### Helper
 
