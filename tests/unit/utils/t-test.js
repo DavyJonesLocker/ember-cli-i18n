@@ -102,3 +102,11 @@ test('interpolation', function() {
   var result = t('number', 5, options);
   equal(result, 'Number: 5');
 });
+
+test('prefers locale to defaultLocale', function() {
+  application.defaultLocale = 'en';
+  application.locale = 'fr';
+
+  var result = t('foo', options);
+  equal(result, 'baz');
+});

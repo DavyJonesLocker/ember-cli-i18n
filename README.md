@@ -29,6 +29,20 @@ var ENV = {
 };
 ```
 
+`defaultLocale` is only the fallback. If you wanted to change the locale
+of the application you should modify your application's `locale`:
+
+```js
+var set = Ember.set;
+var application = container.lookup('application:main');
+set(application, 'locale', 'fr');
+```
+
+You can can trigger this after authentication, or if the user modifies a
+language setting in the app. Of course when this state is removed you
+should clear `locale` so that internationalization fallback to
+`defaultLocale`.
+
 #### Locale Files
 
 Generate a new locale file:
