@@ -1,7 +1,11 @@
-import t from 'ember-cli-i18n/utils/t';
+import t from 'dummy/helpers/t';
 import Ember from 'ember';
 
+var run = Ember.run;
+var compile = Ember.Handlebars.compile;
+
 var container;
+var view;
 var application;
 var options;
 
@@ -42,6 +46,10 @@ function setupLocales() {
   });
 }
 
+function appendView(view) {
+  run(view, 'appendTo', '#qunit-fixture');
+}
+
 module('t Helper', {
   setup: function() {
     requirejs.backup();
@@ -49,7 +57,16 @@ module('t Helper', {
     requirejs.rollback();
     setupLocales();
 
-    application = {};
+    Ember.Handlebars.helpers['t'] = t;
+
+    application = {
+      localeStream: {
+        value: function() {
+          return application.locale;
+        },
+        subscribe: function () {}
+      }
+    };
 
     container = new Ember.Container();
     container.lookupFactory = function(name) {
@@ -60,53 +77,80 @@ module('t Helper', {
     };
 
     container.register('application:main', application, { instantiate: false });
-
-    options = {
-      data: {
-        view: {
-          container: container
-        }
-      }
-    };
   },
   teardown: function() {
     requirejs.clear();
     requirejs.rollback();
+
+    if (view) {
+      run(view, 'destroy');
+    }
   }
 });
 
 test('can lookup english translation', function() {
   application.defaultLocale = 'en';
 
-  var result = t('foo', options);
-  equal(result, 'bar');
+  view = Ember.View.create({
+    container: container,
+    template: compile('{{t "foo"}}')
+  });
+
+  appendView(view);
+
+  equal(view.$().text(), 'bar');
 });
 
 test('can lookup french translation', function() {
   application.defaultLocale = 'fr';
 
-  var result = t('foo', options);
-  equal(result, 'baz');
+  view = Ember.View.create({
+    container: container,
+    template: compile('{{t "foo"}}')
+  });
+
+  appendView(view);
+
+  equal(view.$().text(), 'baz');
 });
 
 test('can lookup in a path', function() {
   application.defaultLocale = 'en';
 
-  var result = t('home.title', options);
-  equal(result, 'Welcome');
+  view = Ember.View.create({
+    container: container,
+    template: compile('{{t "home.title"}}')
+  });
+
+  appendView(view);
+
+  equal(view.$().text(), 'Welcome');
 });
 
 test('interpolation', function() {
   application.defaultLocale = 'en';
 
-  var result = t('number', 5, options);
-  equal(result, 'Number: 5');
+  view = Ember.View.create({
+    container: container,
+    template: compile('{{t "number" 5}}')
+  });
+
+  appendView(view);
+
+  equal(view.$().text(), 'Number: 5');
 });
 
 test('prefers locale to defaultLocale', function() {
   application.defaultLocale = 'en';
   application.locale = 'fr';
 
-  var result = t('foo', options);
-  equal(result, 'baz');
+  view = Ember.View.create({
+    container: container,
+    template: compile('{{t "foo"}}')
+  });
+
+  appendView(view);
+
+  equal(view.$().text(), 'baz');
 });
+

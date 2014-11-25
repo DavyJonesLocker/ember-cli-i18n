@@ -21,11 +21,32 @@ test('no arguments', function() {
   });
 });
 
-test('no bound arguments', function() {
+test('with bound arguments', function() {
   visit('/');
 
   andThen(function() {
     var span = find('span.two');
     equal('You are 35 years old', span.text());
+  });
+});
+
+test('changing application locale', function() {
+  visit('/');
+
+  andThen(function() {
+    var span = find('span.two');
+    equal('You are 35 years old', span.text());
+  });
+
+  andThen(function() {
+    App.set('locale', 'es');
+  });
+
+  andThen(function() {
+    var spanOne = find('span.one');
+    equal('es_bar', spanOne.text());
+
+    var spanTwo = find('span.two');
+    equal('es_You are 35 years old', spanTwo.text());
   });
 });
