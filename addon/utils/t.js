@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 var fmt = Ember.String.fmt;
 var get = Ember.get;
+var bind = Ember.run.bind;
 
 import { read, readArray } from 'ember-cli-i18n/utils/stream';
 
@@ -36,7 +37,7 @@ function T(attributes) {
 
 T.create = function(attributes) {
   var t = new T(attributes);
-  var fn = t.t.bind(t);
+  var fn = bind(t, t.t);
   fn.destroy = function() {};
   return fn;
 };
