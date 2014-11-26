@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import T from 'ember-cli-i18n/utils/t';
 import tHelper from '../helpers/t';
 import Stream from 'ember-cli-i18n/utils/stream';
 
@@ -12,6 +13,12 @@ export function initialize(container, application) {
   Ember.addObserver(application, 'locale', function() {
     application.localeStream.notify();
   });
+
+  application.register('utils:t', T);
+  application.inject('route', 't', 'utils:t');
+  application.inject('models', 't', 'utils:t');
+  application.inject('component', 't', 'utils:t');
+  application.inject('controller', 't', 'utils:t');
 };
 
 export default {

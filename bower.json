@@ -13,8 +13,5 @@
     "ember-qunit": "0.1.8",
     "ember-qunit-notifications": "0.0.4",
     "qunit": "~1.15.0"
-  },
-  "resolutions": {
-    "handlebars": "~2.0.0"
   }
 }
