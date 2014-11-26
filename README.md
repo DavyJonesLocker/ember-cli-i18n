@@ -108,11 +108,22 @@ The `t` function can be used outside of templates as a utility function:
 
 ```javascript
 import Ember from 'ember';
-import t from 'ember-cli-i18n';
 
 export default Ember.Object.extend({
   foo: function() {
+    var t = container.lookup('utils:t');
     return t('foo.bar');
+  }
+});
+```
+
+`t` is automatically injected into **Controllers**, **Components**,
+**Routes**, and **Models**:
+
+```javascript
+export default DS.Model.extend({
+  name: function() {
+    return this.t('name');
   }
 });
 ```

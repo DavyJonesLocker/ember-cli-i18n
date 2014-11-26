@@ -1,3 +1,4 @@
+import T from 'ember-cli-i18n/utils/t';
 import t from 'dummy/helpers/t';
 import Ember from 'ember';
 
@@ -76,6 +77,7 @@ module('t Helper', {
       return require('dummy/'+splitName.join('/'));
     };
 
+    container.register('utils:t', T);
     container.register('application:main', application, { instantiate: false });
   },
   teardown: function() {
