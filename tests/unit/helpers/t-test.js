@@ -129,6 +129,19 @@ test('can lookup in a path', function() {
   equal(view.$().text(), 'Welcome');
 });
 
+test('handles missing keys', function() {
+  application.defaultLocale = 'en';
+
+  view = Ember.View.create({
+    container: container,
+    template: compile('{{t "not-there"}}')
+  });
+
+  appendView(view);
+
+  equal(view.$().text(), '');
+});
+
 test('interpolation', function() {
   application.defaultLocale = 'en';
 
