@@ -77,14 +77,45 @@ module('t utility function', {
   }
 });
 
+test('can lookup english translation', function() {
+  application.defaultLocale = 'en';
+
+  equal(t('foo'), 'bar');
+});
+
+test('can lookup french translation', function() {
+  application.defaultLocale = 'fr';
+
+  equal(t('foo'), 'baz');
+});
+
+test('can lookup in a path', function() {
+  application.defaultLocale = 'en';
+
+  equal(t('home.title'), 'Welcome');
+});
+
+test('interpolation', function() {
+  application.defaultLocale = 'en';
+
+  equal(t('number', 5), 'Number: 5');
+});
+
+test('prefers locale to defaultLocale', function() {
+  application.defaultLocale = 'en';
+  application.locale = 'fr';
+
+  equal(t('foo'), 'baz');
+});
+
 test('can take value arguments', function() {
   application.defaultLocale = 'en';
 
-  equal('John Doe', t('name', 'John', 'Doe'));
+  equal(t('name', 'John', 'Doe'), 'John Doe');
 });
 
 test('can take array arguments', function() {
   application.defaultLocale = 'en';
 
-  equal('John Doe', t('name', ['John', 'Doe']));
+  equal(t('name', ['John', 'Doe']), 'John Doe');
 });
