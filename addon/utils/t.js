@@ -27,7 +27,7 @@ function T(attributes) {
 
     result = get(locale, read(path));
 
-    return fmt(result, readArray(values));
+    return fmt(result, readArray(values || []));
   };
 
   this.lookupLocale = function(countryCode) {
