@@ -26,6 +26,9 @@ function T(attributes) {
     }
 
     result = get(locale, read(path));
+    if (!result) {
+      return result;
+    }
 
     return fmt(result, readArray(values));
   };
