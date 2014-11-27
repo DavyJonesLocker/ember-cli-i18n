@@ -16,6 +16,10 @@ function T(attributes) {
     var locale;
     var result;
 
+    if (!Ember.isArray(values)) {
+      values = Array.prototype.slice.call(arguments, 1);
+    }
+
     if (countryCode) {
       locale = this.lookupLocale(countryCode);
     }
