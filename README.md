@@ -75,7 +75,8 @@ You can add keys for interpolation
 
 ```javascript
 export default {
-  age: 'You are %@1 years old.'
+  age: 'You are %@1 years old.',
+  name: '%@, %@'
 };
 ```
 
@@ -123,10 +124,11 @@ export default Ember.Object.extend({
 ```javascript
 export default DS.Model.extend({
   name: function() {
-    return this.t('name');
+    return this.t('name', 'John', 'Doe');
   }
 });
 ```
+Note that interpolation values can also be passed as an array if you prefer this style. `this.t('name', ['John', 'Doe'])` 
 
 ## Authors ##
 
