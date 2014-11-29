@@ -17,7 +17,7 @@ test('no arguments', function() {
 
   andThen(function() {
     var span = find('span.one');
-    equal('bar', span.text());
+    equal(span.text(), 'bar');
   });
 });
 
@@ -26,7 +26,7 @@ test('with bound arguments', function() {
 
   andThen(function() {
     var span = find('span.two');
-    equal('You are 35 years old', span.text());
+    equal(span.text(), 'You are 35 years old');
   });
 });
 
@@ -35,7 +35,7 @@ test('changing application locale', function() {
 
   andThen(function() {
     var span = find('span.two');
-    equal('You are 35 years old', span.text());
+    equal(span.text(), 'You are 35 years old');
   });
 
   andThen(function() {
@@ -44,9 +44,9 @@ test('changing application locale', function() {
 
   andThen(function() {
     var spanOne = find('span.one');
-    equal('es_bar', spanOne.text());
+    equal(spanOne.text(), 'es_bar');
 
     var spanTwo = find('span.two');
-    equal('es_You are 35 years old', spanTwo.text());
+    equal(spanTwo.text(), 'es_You are 35 years old');
   });
 });
