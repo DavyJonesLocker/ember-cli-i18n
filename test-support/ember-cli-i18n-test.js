@@ -25,6 +25,10 @@ module('ember-cli-i18n', {
 
 test('locales all contain the same keys', function() {
   var knownLocales = keys(locales);
+  if (knownLocales.length === 1) {
+    expect(0);
+    return;
+  }
 
   for (var i = 0, l = knownLocales.length; i < l; i++) {
     var currentLocale = locales[knownLocales[i]];
