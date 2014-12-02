@@ -16,7 +16,7 @@ export function initialize(container, application) {
 
   application.register('utils:t', T);
   application.inject('route', 't', 'utils:t');
-  application.inject('models', 't', 'utils:t');
+  application.inject('model', 't', 'utils:t');
   application.inject('component', 't', 'utils:t');
   application.inject('controller', 't', 'utils:t');
 };
