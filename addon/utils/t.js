@@ -30,6 +30,8 @@ function T(attributes) {
     }
 
     result = get(locale, read(path));
+    Ember.assert('Missing translation for key "' + path + '".', result);
+    Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(result) === 'string');
 
     return fmt(result, readArray(values));
   };
