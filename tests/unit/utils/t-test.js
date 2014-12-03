@@ -119,3 +119,15 @@ test('can take array arguments', function() {
 
   equal(t('name', ['John', 'Doe']), 'John Doe');
 });
+
+test('throws on missing keys', function() {
+  application.defaultLocale = 'en';
+
+  throws(function() { t('missing'); });
+});
+
+test('throws on non-string values', function() {
+  application.defaultLocale = 'en';
+
+  throws(function() { t('home'); });
+});
