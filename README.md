@@ -83,6 +83,35 @@ export default {
 The rules for interpolation follow the same from
 [`Ember.String.fmt`](http://emberjs.com/api/classes/Ember.String.html#method_fmt)
 
+#### Pluralization
+
+Translations can have the following pluralization values `zero`, `one`,
+and `other`:
+
+```javascript
+export default {
+  friend: {
+    zero: 'no friends, %@2',
+    one: 'only one friend, %@2',
+    other: %@ friends, %@'
+  }
+};
+```
+
+The first value passed will be considered the `count` for determining
+how to pluralize. 
+
+```javascript
+t('friend', 0, 'Brian');
+// no friends, Brian
+
+t('friend', 1, 'Brian');
+// only one friend, Brian
+
+t('friend', 10, 'Brian');
+// 10 friends, Brian
+```
+
 #### Helper
 
 You can access the translations in your app with the `t` helper:

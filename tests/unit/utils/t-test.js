@@ -29,7 +29,12 @@ function setupLocales() {
         title: 'Welcome'
       },
       number: 'Number: %@1',
-      name: '%@ %@'
+      name: '%@ %@',
+      friend: {
+        zero: '%@ friends',
+        one: '%@ friend',
+        other: '%@ many friends'
+      }
     };
   });
 
@@ -99,6 +104,24 @@ test('interpolation', function() {
   application.defaultLocale = 'en';
 
   equal(t('number', 5), 'Number: 5');
+});
+
+test('pluralization will result in "zero" when a count of 0 is given', function() {
+  application.defaultLocale = 'en';
+
+  equal(t('friend', 0), '0 friends');
+});
+
+test('pluralization will result in "one" when a count of 1 is given', function() {
+  application.defaultLocale = 'en';
+
+  equal(t('friend', 1), '1 friend');
+});
+
+test('pluralization will result in "other" when a count of 2 is given', function() {
+  application.defaultLocale = 'en';
+
+  equal(t('friend', 2), '2 many friends');
 });
 
 test('prefers locale to defaultLocale', function() {
