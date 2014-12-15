@@ -30,6 +30,30 @@ function T(attributes) {
     }
 
     result = get(locale, read(path));
+
+    if (Ember.typeOf(result) === 'object') {
+      if (result.zero || result.one || result.other) {
+        if (Ember.typeOf(values[0]) === 'number') {
+          switch(values[0]) {
+            case 0:
+              result = result.zero;
+              path = path + '.zero';
+              break;
+            case 1:
+              result = result.one;
+              path = path + '.one';
+              break;
+            default:
+              result = result.other;
+              path = path + '.other';
+              break;
+          }
+        } else {
+          Ember.assert('Translation for key "' + path + '" expected a count value.', false);
+        }
+      }
+    }
+
     Ember.assert('Missing translation for key "' + path + '".', result);
     Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(result) === 'string');
 
