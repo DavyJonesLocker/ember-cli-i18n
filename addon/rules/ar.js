@@ -1,10 +1,10 @@
 import base from 'ember-cli-i18n/rules/base';
 
 export default function(value, result, path, countryCode) {
-  var tmpVal;
   var validKeys = ['zero', 'one', 'two', 'few', 'many', 'other'];
 
   return base(validKeys, value, result, path, countryCode, function(value) {
+    var tmpVal;
     switch(true) {
       case (value === 0): return 'zero';
       case (value === 1): return 'one';

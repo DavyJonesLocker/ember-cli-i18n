@@ -11,7 +11,7 @@ var path = 'result';
 var countryCode = 'en';
 var ruleResults;
 
-module('en rules');
+module('CLDR Rules - English (en)');
 
 test('one', function() {
   cldrTest(1, 'one', rules, result, path, countryCode);
