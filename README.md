@@ -87,13 +87,13 @@ The rules for interpolation follow the same from
 
 #### Pluralization
 
-Translations can have the following pluralization values `zero`, `one`,
-and `other`:
+Pluralization keys follow the format from
+[CLDR](http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html).
+For example, for `en` it expects only the keys `one` and `other`:
 
 ```javascript
 export default {
   friend: {
-    zero: 'no friends, %@2',
     one: 'only one friend, %@2',
     other: '%@ friends, %@'
   }
@@ -105,7 +105,7 @@ how to pluralize.
 
 ```javascript
 t('friend', 0, 'Brian');
-// no friends, Brian
+// 0 friends, Brian
 
 t('friend', 1, 'Brian');
 // only one friend, Brian
@@ -113,6 +113,12 @@ t('friend', 1, 'Brian');
 t('friend', 10, 'Brian');
 // 10 friends, Brian
 ```
+
+Hyphenated languages will be split and the first half will be used to
+determine the pluralization rules. So both `en-us` and `en-gb` will
+follow the `en` rules.
+
+[View the currently supported set of pluralization rules](/addon/rules/).
 
 #### Helper
 

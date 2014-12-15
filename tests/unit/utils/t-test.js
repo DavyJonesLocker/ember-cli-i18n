@@ -31,9 +31,15 @@ function setupLocales() {
       number: 'Number: %@1',
       name: '%@ %@',
       friend: {
-        zero: '%@ friends',
         one: '%@ friend',
-        other: '%@ many friends'
+      }
+    };
+  });
+
+  define('dummy/locales/en-us', [], function() {
+    return {
+      friend: {
+        one: '%@ friend',
       }
     };
   });
@@ -66,10 +72,14 @@ module('t utility function', {
 
     container = new Ember.Container();
     container.lookupFactory = function(name) {
-      var splitName = name.split(':');
-      splitName[0] = splitName[0] + 's';
+      var splitName = name.split(/[@|:]/);
+      if (splitName.length === 2) {
+        splitName.unshift('dummy');
+      }
 
-      return require('dummy/'+splitName.join('/'));
+      splitName[1] = splitName[1] + 's';
+
+      return require(splitName.join('/'));
     };
 
     container.register('application:main', application, { instantiate: false });
@@ -106,22 +116,16 @@ test('interpolation', function() {
   equal(t('number', 5), 'Number: 5');
 });
 
-test('pluralization will result in "zero" when a count of 0 is given', function() {
-  application.defaultLocale = 'en';
-
-  equal(t('friend', 0), '0 friends');
-});
-
-test('pluralization will result in "one" when a count of 1 is given', function() {
+test('pluralization', function() {
   application.defaultLocale = 'en';
 
   equal(t('friend', 1), '1 friend');
 });
 
-test('pluralization will result in "other" when a count of 2 is given', function() {
-  application.defaultLocale = 'en';
+test('pluralization with hyphenated locale', function() {
+  application.defaultLocale = 'en-us';
 
-  equal(t('friend', 2), '2 many friends');
+  equal(t('friend', 1), '1 friend');
 });
 
 test('prefers locale to defaultLocale', function() {
