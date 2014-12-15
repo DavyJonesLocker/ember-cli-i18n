@@ -6,6 +6,8 @@
 
 Simple Internationalization support for ember-cli apps.
 
+**Note: This release requires Ember 1.9. Will likely break with 1.10**
+
 ## Install ##
 
 ```bash
