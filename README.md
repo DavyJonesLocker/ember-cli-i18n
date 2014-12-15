@@ -93,7 +93,7 @@ export default {
   friend: {
     zero: 'no friends, %@2',
     one: 'only one friend, %@2',
-    other: %@ friends, %@'
+    other: '%@ friends, %@'
   }
 };
 ```
