@@ -15,6 +15,7 @@ function T(attributes) {
     var countryCode = application.localeStream.value();
     var locale;
     var result;
+    var rules;
 
     if (!Ember.isArray(values)) {
       values = Array.prototype.slice.call(arguments, 1);
@@ -32,26 +33,10 @@ function T(attributes) {
     result = get(locale, read(path));
 
     if (Ember.typeOf(result) === 'object') {
-      if (result.zero || result.one || result.other) {
-        if (Ember.typeOf(values[0]) === 'number') {
-          switch(values[0]) {
-            case 0:
-              result = result.zero;
-              path = path + '.zero';
-              break;
-            case 1:
-              result = result.one;
-              path = path + '.one';
-              break;
-            default:
-              result = result.other;
-              path = path + '.other';
-              break;
-          }
-        } else {
-          Ember.assert('Translation for key "' + path + '" expected a count value.', false);
-        }
-      }
+      rules = this.container.lookupFactory('ember-cli-i18n@rule:'+countryCode.split('-')[0])['default'];
+      var ruleResults = rules(values[0], result, path, countryCode);
+      result = ruleResults.result;
+      path = ruleResults.path;
     }
 
     Ember.assert('Missing translation for key "' + path + '".', result);
