@@ -4,13 +4,13 @@ export default function(value, result, path, countryCode) {
   var validKeys = ['zero', 'one', 'two', 'few', 'many', 'other'];
 
   return base(validKeys, value, result, path, countryCode, function(value) {
-    var tmpVal;
+    var mod100 = value % 100;
     switch(true) {
       case (value === 0): return 'zero';
       case (value === 1): return 'one';
       case (value === 2): return 'two';
-      case ((tmpVal = value % 100) && tmpVal >= 3 && tmpVal <= 10): return 'few';
-      case ((tmpVal = value % 100) && tmpVal >= 11 && tmpVal <= 99): return 'many';
+      case (mod100 >= 3 && mod100 <= 10): return 'few';
+      case (mod100 >= 11 && mod100 <= 99): return 'many';
       default: return 'other';
     }
   });
