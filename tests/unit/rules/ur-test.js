@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import rules from 'ember-cli-i18n/rules/ur';
+import rules from 'ember-cli-i18n/rules/en';
 import cldrTest from '../../helpers/cldr';
 
 var result = {
@@ -8,10 +8,10 @@ var result = {
 };
 
 var path = 'result';
-var countryCode = 'ur';
+var countryCode = 'en';
 var ruleResults;
 
-module('CLDR Rules - Urdu ('+countryCode+')');
+module('CLDR Rules - English ('+countryCode+')');
 
 test('one', function() {
   cldrTest(1, 'one', rules, result, path, countryCode);
