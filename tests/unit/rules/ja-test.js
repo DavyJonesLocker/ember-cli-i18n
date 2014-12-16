@@ -11,7 +11,7 @@ var path = 'result';
 var countryCode = 'ja';
 var ruleResults;
 
-module('CLDR Rules - Chinese ('+countryCode+')');
+module('CLDR Rules - Japanese ('+countryCode+')');
 
 test('other', function() {
   cldrTest(0, 'other', rules, result, path, countryCode);
