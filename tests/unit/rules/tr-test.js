@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import rules from 'ember-cli-i18n/rules/tr';
+import rules from 'ember-cli-i18n/rules/zh';
 import cldrTest from '../../helpers/cldr';
 
 var result = {
@@ -8,10 +8,10 @@ var result = {
 };
 
 var path = 'result';
-var countryCode = 'tr';
+var countryCode = 'zh';
 var ruleResults;
 
-module('CLDR Rules - Turkish ('+countryCode+')');
+module('CLDR Rules - Chinese ('+countryCode+')');
 
 test('other', function() {
   cldrTest(0, 'other', rules, result, path, countryCode);
