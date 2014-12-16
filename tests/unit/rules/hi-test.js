@@ -8,10 +8,10 @@ var result = {
 };
 
 var path = 'result';
-var countryCode = 'en';
+var countryCode = 'hi';
 var ruleResults;
 
-module('CLDR Rules - Hindi (hi)');
+module('CLDR Rules - Hindi ('+countryCode+')');
 
 test('one', function() {
   cldrTest(0, 'one', rules, result, path, countryCode);

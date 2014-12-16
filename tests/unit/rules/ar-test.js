@@ -12,10 +12,10 @@ var result = {
 };
 
 var path = 'result';
-var countryCode = 'en';
+var countryCode = 'ar';
 var ruleResults;
 
-module('CLDR Rules - Arabic (ar)');
+module('CLDR Rules - Arabic ('+countryCode+')');
 
 test('zero', function() {
   cldrTest(0, 'zero', rules, result, path, countryCode);

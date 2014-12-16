@@ -8,10 +8,10 @@ var result = {
 };
 
 var path = 'result';
-var countryCode = 'en';
+var countryCode = 'bn';
 var ruleResults;
 
-module('CLDR Rules - Bengali (bn)');
+module('CLDR Rules - Bengali ('+countryCode+')');
 
 test('one', function() {
   cldrTest(1, 'one', rules, result, path, countryCode);

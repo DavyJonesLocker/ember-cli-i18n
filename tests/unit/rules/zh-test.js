@@ -8,10 +8,10 @@ var result = {
 };
 
 var path = 'result';
-var countryCode = 'en';
+var countryCode = 'zh';
 var ruleResults;
 
-module('CLDR Rules - Chinese (zh)');
+module('CLDR Rules - Chinese ('+countryCode+')');
 
 test('other', function() {
   cldrTest(0, 'other', rules, result, path, countryCode);

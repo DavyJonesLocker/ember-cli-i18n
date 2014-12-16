@@ -8,10 +8,10 @@ var result = {
 };
 
 var path = 'result';
-var countryCode = 'en';
+var countryCode = 'pt';
 var ruleResults;
 
-module('CLDR Rules - Portugese (pt)');
+module('CLDR Rules - Portugese ('+countryCode+')');
 
 test('one', function() {
   cldrTest(1, 'one', rules, result, path, countryCode);
