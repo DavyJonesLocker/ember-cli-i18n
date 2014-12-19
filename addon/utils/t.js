@@ -32,9 +32,15 @@ function T(attributes) {
 
     result = get(locale, read(path));
 
+    value = values[0]
+
+    if (values[0].isStream){
+      value = values[0].value()
+    }
+
     if (Ember.typeOf(result) === 'object') {
-      rules = this.container.lookupFactory('ember-cli-i18n@rule:'+countryCode.split('-')[0])['default'];
-      var ruleResults = rules(values[0], result, path, countryCode);
+      rules = this.container.lookupFactory('ember-cli-i18n@rule:'+countryCode.split('-')[0]);
+      var ruleResults = rules(values, result, path, countryCode);
       result = ruleResults.result;
       path = ruleResults.path;
     }
