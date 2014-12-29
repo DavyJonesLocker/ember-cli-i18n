@@ -101,7 +101,7 @@ export default {
 ```
 
 The first value passed will be considered the `count` for determining
-how to pluralize. 
+how to pluralize.
 
 ```javascript
 t('friend', 0, 'Brian');
@@ -165,7 +165,29 @@ export default DS.Model.extend({
   }
 });
 ```
-Note that interpolation values can also be passed as an array if you prefer this style. `this.t('name', ['John', 'Doe'])` 
+Note that interpolation values can also be passed as an array if you prefer this style. `this.t('name', ['John', 'Doe'])`
+
+#### Testing
+We inject all of our dependencies into the container, so when unit testing
+a Component/Model/Route/Controller, we can manually call our initializer
+to set up the dependencies in a `setup()` call
+
+```javascript
+// we need to pull in a reference to the initializer
+import initializer from 'dummy/initializers/t';
+
+moduleForComponent( // or just moduleFor if a Model/Route/Controller
+  'translated-string',
+  'TranslatedString',
+  {
+    setup: function(container){
+      Ember.set(container, 'locale', 'en'); // set default locale
+      initializer.initialize(container); // set up dependencies
+    },
+    needs: ['locale:en'] // forces the app to load the translations
+  }
+);
+```
 
 ## Authors ##
 
