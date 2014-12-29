@@ -12,7 +12,7 @@ function T(attributes) {
   }
   this.t = function(path, values) {
     var application = this.container.lookup('application:main');
-    var countryCode = application.localeStream.value();
+    var countryCode = this.container.localeStream.value();
     var locale;
     var result;
     var rules;
