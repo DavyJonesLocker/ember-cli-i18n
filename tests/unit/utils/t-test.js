@@ -157,3 +157,9 @@ test('throws on non-string values', function() {
 
   throws(function() { t('home'); });
 });
+
+test('throws when there is no found locale', function(){
+  application.defaultLocale = 'foo';
+
+  throws(function(){ t('foo'); });
+});

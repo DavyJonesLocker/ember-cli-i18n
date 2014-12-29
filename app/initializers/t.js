@@ -14,9 +14,11 @@ export function initialize(container, application) {
     container.localeStream.notify();
   });
 
-  Ember.addObserver(application, 'locale', function(){
-    Ember.set(container, 'locale', application.get('locale'));
-  })
+  if(typeof(application) != 'undefined') {
+    Ember.addObserver(application, 'locale', function(){
+      Ember.set(container, 'locale', application.get('locale'));
+    })
+  }
 
   container.register('utils:t', T);
   container.injection('route', 't', 'utils:t');

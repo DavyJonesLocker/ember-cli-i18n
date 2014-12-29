@@ -1,4 +1,5 @@
 export default {
+  bar: 'Translated Bar',
   foo: 'bar',
   age: 'You are %@1 years old'
 };

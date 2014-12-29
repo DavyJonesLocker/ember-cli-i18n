@@ -25,10 +25,12 @@ function T(attributes) {
       locale = this.lookupLocale(countryCode);
     }
 
-    if (!locale) {
+    if (!locale && typeof(application) !== 'undefined') {
       countryCode = application.defaultLocale;
       locale = this.lookupLocale(countryCode);
     }
+
+    Ember.assert('No locale for ' + countryCode, locale);
 
     result = get(locale, read(path));
 
