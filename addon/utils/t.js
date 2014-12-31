@@ -16,6 +16,7 @@ function T(attributes) {
     var locale;
     var result;
     var rules;
+    var value;
 
     if (!Ember.isArray(values)) {
       values = Array.prototype.slice.call(arguments, 1);
@@ -32,9 +33,11 @@ function T(attributes) {
 
     result = get(locale, read(path));
 
+    value = read(values[0])
+
     if (Ember.typeOf(result) === 'object') {
-      rules = this.container.lookupFactory('ember-cli-i18n@rule:'+countryCode.split('-')[0])['default'];
-      var ruleResults = rules(values[0], result, path, countryCode);
+      rules = this.container.lookupFactory('ember-cli-i18n@rule:'+countryCode.split('-')[0]);
+      var ruleResults = rules(value, result, path, countryCode);
       result = ruleResults.result;
       path = ruleResults.path;
     }
