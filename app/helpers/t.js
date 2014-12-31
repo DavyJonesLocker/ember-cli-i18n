@@ -12,7 +12,6 @@ export default function tHelper() {
   var view = options.data.view;
   var container = view.container;
   var t = container.lookup('utils:t');
-  var application = container.lookup('application:main');
   var types = options.types;
 
   // parse input params and streamify
@@ -37,7 +36,7 @@ export default function tHelper() {
     Ember.run.scheduleOnce('render', childView, 'rerender');
   }));
 
-  application.localeStream.subscribe(stream.notify, stream);
+  container.localeStream.subscribe(stream.notify, stream);
 
   if (path.isStream) {
     path.subscribe(stream.notify, stream);
