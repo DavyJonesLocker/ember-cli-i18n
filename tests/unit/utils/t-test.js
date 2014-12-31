@@ -72,7 +72,12 @@ module('t utility function', {
 
       splitName[1] = splitName[1] + 's';
 
-      return require(splitName.join('/'));
+      var lib = require(splitName.join('/'));
+      if(lib.default) {
+        return lib.default;
+      } else {
+        return lib;
+      }
     };
 
     container.localeStream = {
