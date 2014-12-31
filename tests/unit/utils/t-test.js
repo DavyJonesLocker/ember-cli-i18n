@@ -79,7 +79,11 @@ module('t utility function', {
 
       splitName[1] = splitName[1] + 's';
 
-      return require(splitName.join('/'));
+      var module = require(splitName.join('/'));
+
+      if (module && module['default']) { module = module['default']; }
+
+      return module;
     };
 
     container.register('application:main', application, { instantiate: false });
