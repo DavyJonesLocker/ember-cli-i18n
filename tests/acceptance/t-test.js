@@ -30,6 +30,15 @@ test('with bound arguments', function() {
   });
 });
 
+test('with pluralization', function() {
+  visit('/');
+
+  andThen(function() {
+    var span = find('span.three');
+    equal(span.text(), 'There are many people here');
+  });
+});
+
 test('changing application locale', function() {
   visit('/');
 

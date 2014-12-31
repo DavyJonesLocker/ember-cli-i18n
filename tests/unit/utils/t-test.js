@@ -61,14 +61,7 @@ module('t utility function', {
     requirejs.rollback();
     setupLocales();
 
-    application = {
-      localeStream: {
-        value: function() {
-          return application.locale;
-        },
-        subscribe: function () {}
-      }
-    };
+    application = {};
 
     container = new Ember.Container();
     container.lookupFactory = function(name) {
@@ -79,7 +72,18 @@ module('t utility function', {
 
       splitName[1] = splitName[1] + 's';
 
-      return require(splitName.join('/'));
+      var lib = require(splitName.join('/'));
+      if(lib.default) {
+        return lib.default;
+      } else {
+        return lib;
+      }
+    };
+
+    container.localeStream = {
+      value: function() {
+        return application.locale;
+      }
     };
 
     container.register('application:main', application, { instantiate: false });
@@ -157,4 +161,10 @@ test('throws on non-string values', function() {
   application.defaultLocale = 'en';
 
   throws(function() { t('home'); });
+});
+
+test('throws when there is no found locale', function(){
+  application.defaultLocale = 'foo';
+
+  throws(function(){ t('foo'); });
 });

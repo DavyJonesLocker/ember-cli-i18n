@@ -6,19 +6,25 @@ import Stream from 'ember-cli-i18n/utils/stream';
 export function initialize(container, application) {
   Ember.Handlebars.registerHelper('t', tHelper);
 
-  application.localeStream = new Stream(function() {
-    return  application.get('locale');
+  container.localeStream = new Stream(function() {
+    return Ember.get(container, 'locale');
   });
 
-  Ember.addObserver(application, 'locale', function() {
-    application.localeStream.notify();
+  Ember.addObserver(container, 'locale', function() {
+    container.localeStream.notify();
   });
 
-  application.register('utils:t', T);
-  application.inject('route', 't', 'utils:t');
-  application.inject('model', 't', 'utils:t');
-  application.inject('component', 't', 'utils:t');
-  application.inject('controller', 't', 'utils:t');
+  if(typeof(application) != 'undefined') {
+    Ember.addObserver(application, 'locale', function(){
+      Ember.set(container, 'locale', application.get('locale'));
+    })
+  }
+
+  container.register('utils:t', T);
+  container.injection('route', 't', 'utils:t');
+  container.injection('model', 't', 'utils:t');
+  container.injection('component', 't', 'utils:t');
+  container.injection('controller', 't', 'utils:t');
 };
 
 export default {
