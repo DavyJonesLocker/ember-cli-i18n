@@ -37,6 +37,14 @@ export default function tHelper() {
     Ember.run.scheduleOnce('render', childView, 'rerender');
   }));
 
+  // bind any arguments that are Streams
+  for (var i = 0, l = args.length; i < l; i++) {
+    var param = args[i];
+    if(param && param.isStream){
+      param.subscribe(stream.notify, stream);
+    };
+  }
+
   application.localeStream.subscribe(stream.notify, stream);
 
   if (path.isStream) {

@@ -39,6 +39,25 @@ test('with pluralization', function() {
   });
 });
 
+test('with pluralization updated from a stream', function(){
+  visit('/');
+
+  andThen(function(){
+    var span = find('span.four');
+    equal(span.text(), 'There is 1 dependent person here');
+  });
+
+  andThen(function(){
+    click('.add-dependent');
+  });
+
+  andThen(function(){
+    var span = find('span.four');
+    equal(span.text(), 'There are 2 dependent people here');
+  });
+
+});
+
 test('changing application locale', function() {
   visit('/');
 
