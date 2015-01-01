@@ -1,11 +1,15 @@
 import Ember from 'ember';
+import { read } from 'ember-cli-i18n/utils/stream';
 
 export default function(keys, value, result, path, countryCode, fn) {
   var type;
 
+  // Handle results that come in as a Stream
+  value = read(value);
+
   if (hasValidKey(keys, result)) {
     if(Ember.typeOf(value) === 'number') {
-      type = fn(value);      
+      type = fn(value);
     } else {
       Ember.assert('Translation for key "' + path + '" expected a count value.', false);
     }
@@ -21,7 +25,7 @@ function hasValidKey(keys, result) {
 
   for(var i = 0; i < resultKeys.length; i++) {
     if (keys.indexOf(resultKeys[i]) > -1) {
-     return true; 
+     return true;
     }
   }
 
