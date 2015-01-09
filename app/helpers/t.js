@@ -18,13 +18,13 @@ export default function tHelper() {
   // parse input params and streamify
   for (var i = 0, l = args.length; i < l; i++) {
     // (starting at 1 because we popped path off already
-    if (types[i + 1] === 'ID') {
+    if (types && types[i + 1] === 'ID') {
       args[i] = view.getStream(args[i]);
     }
   }
 
   // convert path into a stream
-  if (types[0] === 'ID') {
+  if (types && types[0] === 'ID') {
     path = view.getStream(path);
   }
 
