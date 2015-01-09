@@ -8,8 +8,13 @@ export default function tHelper() {
   var view = options.data.view;
   var container = view.container;
   var t = container.lookup('utils:t');
+  var application = container.lookup('application:main');
 
-  return new Stream(function() {
+  var stream = new Stream(function() {
     return t(path, args);
   });
+
+  application.localeStream.subscribe(stream.notify, stream);
+
+  return stream;
 }
