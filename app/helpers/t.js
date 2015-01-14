@@ -1,20 +1,29 @@
 import Stream from 'ember-cli-i18n/utils/stream';
 
-export default function tHelper() {
-  var args = Array.prototype.slice.call(arguments);
-  var path = args.shift();
-  var options = args.pop();
+export default function tHelper(params, hash, options, env) {
+  var path = params.shift();
 
-  var view = options.data.view;
-  var container = view.container;
+  var container = this.container;
   var t = container.lookup('utils:t');
   var application = container.lookup('application:main');
 
   var stream = new Stream(function() {
-    return t(path, args);
+    return t(path, params);
   });
 
+  // bind any arguments that are Streams
+  for (var i = 0, l = params.length; i < l; i++) {
+    var param = params[i];
+    if(param && param.isStream){
+      param.subscribe(stream.notify, stream);
+    };
+  }
+
   application.localeStream.subscribe(stream.notify, stream);
+
+  if (path.isStream) {
+    path.subscribe(stream.notify, stream);
+  }
 
   return stream;
 }
