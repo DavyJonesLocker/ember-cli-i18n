@@ -5,7 +5,7 @@ export default {
     one: 'There is one person here',
     other: 'There are many people here'
   },
-  dependent_person: {
+  dependentPerson: {
     one: 'There is %@ dependent person here',
     other: 'There are %@ dependent people here'
   }
