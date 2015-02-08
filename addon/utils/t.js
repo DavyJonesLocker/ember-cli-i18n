@@ -32,6 +32,10 @@ function T(attributes) {
 
     result = get(locale, read(path));
 
+    if (!result){
+      result = locale[path];
+    }
+
     if (Ember.typeOf(result) === 'object') {
       rules = this.container.lookupFactory('ember-cli-i18n@rule:'+countryCode.split('-')[0]);
       var ruleResults = rules(values[0], result, path, countryCode);
