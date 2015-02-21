@@ -167,6 +167,43 @@ export default DS.Model.extend({
 ```
 Note that interpolation values can also be passed as an array if you prefer this style. `this.t('name', ['John', 'Doe'])` 
 
+### Overriding the Locale Lookup Handler
+
+By default locales are attempted to be looked as modules in your
+project. However, you may wish to override how this is done. You can do that by overriding the locale lookup handler. Let's assume you have all of your locales stored in a single POJO.
+
+You'll first need to create a new file: `my-app/services/i18n.js`
+
+```javascript
+import service from 'ember-cli-i18n/services/i81n';
+
+service.getLocalizedPath = function(locale, path) {
+  return Locales[locale][path];    
+}
+
+export default service;
+```
+
+The default service object that was imported has three functions that
+can be overridden and customized:
+
+#### `resolveLocale`
+
+* **Paramaters**: `container`, `scope`
+* **Returns**: locale code
+
+#### `getLocalizedPath`
+* **Paramaters**: `locale`, `path`, `container`, `scope`
+* **Returns**: string or object
+
+#### `applyPluralizationRules`
+* **Paramaters**: `result`, `locale`, `path`, `container`, `values`,
+  `scope`
+* **Returns**: if `result` is a string, will skip rules and return
+  `result`. If `result` is an `Object`, will assume pluralization needs
+to apply and formats `result` with proper pluralization rules based upon
+`values[0]`
+
 ## Authors ##
 
 * [Brian Cardarella](http://twitter.com/bcardarella)

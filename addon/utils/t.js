@@ -1,7 +1,7 @@
 import Ember from 'ember';
+import defaultservice from 'ember-cli-i18n/services/i18n';
 
 var fmt = Ember.String.fmt;
-var get = Ember.get;
 var bind = Ember.run.bind;
 
 import { read, readArray } from 'ember-cli-i18n/utils/stream';
@@ -11,42 +11,28 @@ function T(attributes) {
     this[key] = attributes[key];
   }
   this.t = function(path, values) {
-    var application = this.container.lookup('application:main');
-    var countryCode = application.localeStream.value();
-    var locale;
+    var service = this.container.lookupFactory('service:i18n');
     var result;
-    var rules;
+    var locale;
 
     if (!Ember.isArray(values)) {
       values = Array.prototype.slice.call(arguments, 1);
     }
 
-    if (countryCode) {
-      locale = this.lookupLocale(countryCode);
+    if (!service || service.lookupLocalePath) {
+      service = defaultservice;
     }
 
-    if (!locale) {
-      countryCode = application.defaultLocale;
-      locale = this.lookupLocale(countryCode);
-    }
+    path = read(path);
 
-    result = get(locale, read(path));
-
-    if (Ember.typeOf(result) === 'object') {
-      rules = this.container.lookupFactory('ember-cli-i18n@rule:'+countryCode.split('-')[0]);
-      var ruleResults = rules(values[0], result, path, countryCode);
-      result = ruleResults.result;
-      path = ruleResults.path;
-    }
+    locale = service.resolveLocale(this.container, this);
+    result = service.getLocalizedPath(locale, path, this.container, this);
+    result = service.applyPluralizationRules(result, locale, path, this.container, values, this);
 
     Ember.assert('Missing translation for key "' + path + '".', result);
     Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(result) === 'string');
 
     return fmt(result, readArray(values));
-  };
-
-  this.lookupLocale = function(countryCode) {
-    return this.container.lookupFactory('locale:' + countryCode);
   };
 }
 
