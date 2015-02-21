@@ -1,6 +1,7 @@
 import T from 'ember-cli-i18n/utils/t';
 import Ember from 'ember';
 
+var get = Ember.get;
 var container;
 var application;
 var t;
@@ -74,13 +75,19 @@ module('t utility function', {
     container = new Ember.Container();
     container.lookupFactory = function(name) {
       var splitName = name.split(/[@|:]/);
+      var module;
       if (splitName.length === 2) {
         splitName.unshift('dummy');
       }
 
       splitName[1] = splitName[1] + 's';
 
-      var module = require(splitName.join('/'));
+      try {
+        module = require(splitName.join('/'));
+      }
+      catch(e) {
+        return null;
+      }
 
       if (module && module['default']) { module = module['default']; }
 
@@ -168,4 +175,30 @@ test('throws on non-string values', function() {
   application.defaultLocale = 'en';
 
   throws(function() { t('home'); });
+});
+
+test('can override the locale lookup handler', function() {
+  define('dummy/services/i18n', [], function() {
+    return {
+      getLocalizedPath: function(locale, path) {
+        var translations = {
+          'en': {
+            'foo': 'bizbar'
+          }
+        };
+
+        return get(translations[locale], path);
+      },
+      resolveLocale: function() {
+        return 'en';
+      },
+      applyPluralizationRules: function(result) {
+        return result;
+      }
+    };
+  });
+
+  application.defaultLocale = 'en';
+
+  equal(t('foo'), 'bizbar');
 });
