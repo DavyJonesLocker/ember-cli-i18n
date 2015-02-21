@@ -204,6 +204,12 @@ can be overridden and customized:
 to apply and formats `result` with proper pluralization rules based upon
 `values[0]`
 
+#### `fmt`
+* **Paramaters**: `result`, `values`
+* **Returns**: formatted string
+
+This function delegates to `Ember.String.fmt` by default. You can override
+
 ## Authors ##
 
 * [Brian Cardarella](http://twitter.com/bcardarella)
