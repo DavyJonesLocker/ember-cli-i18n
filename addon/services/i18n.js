@@ -28,5 +28,6 @@ export default {
       path = ruleResults.path;
     }
     return result;
-  }
+  },
+  fmt: Ember.String.fmt
 };

@@ -194,6 +194,9 @@ test('can override the locale lookup handler', function() {
       },
       applyPluralizationRules: function(result) {
         return result;
+      },
+      fmt: function(result) {
+        return result;
       }
     };
   });
@@ -201,4 +204,33 @@ test('can override the locale lookup handler', function() {
   application.defaultLocale = 'en';
 
   equal(t('foo'), 'bizbar');
+});
+
+test('can override the format handler', function() {
+  define('dummy/services/i18n', [], function() {
+    return {
+      getLocalizedPath: function(locale, path) {
+        var translations = {
+          'en': {
+            'foo': 'bizbar'
+          }
+        };
+
+        return get(translations[locale], path);
+      },
+      resolveLocale: function() {
+        return 'en';
+      },
+      applyPluralizationRules: function(result) {
+        return result;
+      },
+      fmt: function(result) {
+        return 'barbiz';
+      }
+    };
+  });
+
+  application.defaultLocale = 'en';
+
+  equal(t('foo'), 'barbiz');
 });

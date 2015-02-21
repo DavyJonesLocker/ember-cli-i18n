@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import defaultservice from 'ember-cli-i18n/services/i18n';
 
-var fmt = Ember.String.fmt;
 var bind = Ember.run.bind;
 
 import { read, readArray } from 'ember-cli-i18n/utils/stream';
@@ -32,7 +31,7 @@ function T(attributes) {
     Ember.assert('Missing translation for key "' + path + '".', result);
     Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(result) === 'string');
 
-    return fmt(result, readArray(values));
+    return service.fmt(result, readArray(values));
   };
 }
 
