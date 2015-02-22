@@ -175,7 +175,7 @@ project. However, you may wish to override how this is done. You can do that by 
 You'll first need to create a new file: `my-app/services/i18n.js`
 
 ```javascript
-import service from 'ember-cli-i18n/services/i81n';
+import service from 'ember-cli-i18n/services/i18n';
 
 service.getLocalizedPath = function(locale, path) {
   return Locales[locale][path];    
