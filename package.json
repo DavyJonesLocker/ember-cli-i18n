@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-i18n",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Simple Internationalization support for ember-cli apps.",
   "directories": {
     "doc": "doc",
