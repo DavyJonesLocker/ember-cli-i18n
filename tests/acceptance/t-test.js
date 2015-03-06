@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 
 var App;
@@ -12,39 +13,39 @@ module('Acceptance: T', {
   }
 });
 
-test('no arguments', function() {
+test('no arguments', function(assert) {
   visit('/');
 
   andThen(function() {
     var span = find('span.one');
-    equal(span.text(), 'bar');
+    assert.equal(span.text(), 'bar');
   });
 });
 
-test('with bound arguments', function() {
+test('with bound arguments', function(assert) {
   visit('/');
 
   andThen(function() {
     var span = find('span.two');
-    equal(span.text(), 'You are 35 years old');
+    assert.equal(span.text(), 'You are 35 years old');
   });
 });
 
-test('with pluralization', function() {
+test('with pluralization', function(assert) {
   visit('/');
 
   andThen(function() {
     var span = find('span.three');
-    equal(span.text(), 'There are many people here');
+    assert.equal(span.text(), 'There are many people here');
   });
 });
 
-test('with pluralization updated from a stream', function(){
+test('with pluralization updated from a stream', function(assert) {
   visit('/');
 
   andThen(function(){
     var span = find('span.four');
-    equal(span.text(), 'There is 1 dependent person here');
+    assert.equal(span.text(), 'There is 1 dependent person here');
   });
 
   andThen(function(){
@@ -53,17 +54,17 @@ test('with pluralization updated from a stream', function(){
 
   andThen(function(){
     var span = find('span.four');
-    equal(span.text(), 'There are 2 dependent people here');
+    assert.equal(span.text(), 'There are 2 dependent people here');
   });
 
 });
 
-test('changing application locale', function() {
+test('changing application locale', function(assert) {
   visit('/');
 
   andThen(function() {
     var span = find('span.two');
-    equal(span.text(), 'You are 35 years old');
+    assert.equal(span.text(), 'You are 35 years old');
   });
 
   andThen(function() {
@@ -72,9 +73,9 @@ test('changing application locale', function() {
 
   andThen(function() {
     var spanOne = find('span.one');
-    equal(spanOne.text(), 'es_bar');
+    assert.equal(spanOne.text(), 'es_bar');
 
     var spanTwo = find('span.two');
-    equal(spanTwo.text(), 'es_You are 35 years old');
+    assert.equal(spanTwo.text(), 'es_You are 35 years old');
   });
 });
