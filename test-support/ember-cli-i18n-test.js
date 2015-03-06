@@ -24,7 +24,7 @@ if (window.QUnit) {
     }
   });
 
-  test('locales all contain the same keys', function() {
+  test('locales all contain the same keys', function(assert) {
     var knownLocales = keys(locales);
     if (knownLocales.length === 1) {
       expect(0);
@@ -39,7 +39,7 @@ if (window.QUnit) {
       }
 
       for (var translationKey in defaultLocale) {
-        ok(currentLocale[translationKey], '`' + translationKey + '` should exist in the `' + knownLocales[i] + '` locale.');
+        assert.ok(currentLocale[translationKey], '`' + translationKey + '` should exist in the `' + knownLocales[i] + '` locale.');
       }
     }
   });

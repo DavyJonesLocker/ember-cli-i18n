@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { module, test } from 'qunit';
 import rules from 'ember-cli-i18n/rules/ar';
 import cldrTest from '../../helpers/cldr';
 
@@ -17,57 +18,57 @@ var ruleResults;
 
 module('CLDR Rules - Arabic ('+countryCode+')');
 
-test('zero', function() {
-  cldrTest(0, 'zero', rules, result, path, countryCode);
+test('zero', function(assert) {
+  cldrTest(assert, 0, 'zero', rules, result, path, countryCode);
 });
 
-test('one', function() {
-  cldrTest(1, 'one', rules, result, path, countryCode);
+test('one', function(assert) {
+  cldrTest(assert, 1, 'one', rules, result, path, countryCode);
 });
 
-test('two', function() {
-  cldrTest(2, 'two', rules, result, path, countryCode);
+test('two', function(assert) {
+  cldrTest(assert, 2, 'two', rules, result, path, countryCode);
 });
 
-var fewTest = function(value) {
-  cldrTest(value, 'few', rules, result, path, countryCode);
+var fewTest = function(assert, value) {
+  cldrTest(assert, value, 'few', rules, result, path, countryCode);
 };
 
-test('few', function() {
-  fewTest(3);
-  fewTest(103);
-  fewTest(110);
-  fewTest(100003);
-  fewTest(92103);
-  fewTest(91207);
-  fewTest(9110);
+test('few', function(assert) {
+  fewTest(assert, 3);
+  fewTest(assert, 103);
+  fewTest(assert, 110);
+  fewTest(assert, 100003);
+  fewTest(assert, 92103);
+  fewTest(assert, 91207);
+  fewTest(assert, 9110);
 });
 
-var manyTest = function(value) {
-  cldrTest(value, 'many', rules, result, path, countryCode);
+var manyTest = function(assert, value) {
+  cldrTest(assert, value, 'many', rules, result, path, countryCode);
 };
 
-test('many', function() {
-  manyTest(11);
-  manyTest(99);
-  manyTest(211);
-  manyTest(299);
-  manyTest(123411);
-  manyTest(123499);
+test('many', function(assert) {
+  manyTest(assert, 11);
+  manyTest(assert, 99);
+  manyTest(assert, 211);
+  manyTest(assert, 299);
+  manyTest(assert, 123411);
+  manyTest(assert, 123499);
 });
 
-var otherTest = function(value) {
-  cldrTest(value, 'other', rules, result, path, countryCode);
+var otherTest = function(assert, value) {
+  cldrTest(assert, value, 'other', rules, result, path, countryCode);
 };
 
-test('other', function() {
-  otherTest(100);
-  otherTest(101);
-  otherTest(120200);
-  otherTest(10.5);
+test('other', function(assert) {
+  otherTest(assert, 100);
+  otherTest(assert, 101);
+  otherTest(assert, 120200);
+  otherTest(assert, 10.5);
 });
 
-test('assertion is thrown if no valid keys exist', function() {
+test('assertion is thrown if no valid keys exist', function(assert) {
   var badResult = {foo: 'bar'};
   var count = 0;
   var oldAssert = Ember.assert;
@@ -76,11 +77,11 @@ test('assertion is thrown if no valid keys exist', function() {
   };
 
   rules(0, badResult, path, countryCode);
-  equal(count, 1);
+  assert.equal(count, 1);
   Ember.assert = oldAssert;
 });
 
-test('assertion is thrown if non-numeric value is passed ', function() {
+test('assertion is thrown if non-numeric value is passed ', function(assert) {
   var count = 0;
   var oldAssert = Ember.assert;
   Ember.assert = function() {
@@ -88,6 +89,6 @@ test('assertion is thrown if non-numeric value is passed ', function() {
   };
 
   rules('0', result, path, countryCode);
-  equal(count, 1);
+  assert.equal(count, 1);
   Ember.assert = oldAssert;
 });

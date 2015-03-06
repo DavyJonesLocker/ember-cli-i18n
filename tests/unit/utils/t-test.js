@@ -1,4 +1,5 @@
 import T from 'ember-cli-i18n/utils/t';
+import { module, test } from 'qunit';
 import Ember from 'ember';
 
 var get = Ember.get;
@@ -104,80 +105,80 @@ module('t utility function', {
   }
 });
 
-test('can lookup english translation', function() {
+test('can lookup english translation', function(assert) {
   application.defaultLocale = 'en';
 
-  equal(t('foo'), 'bar');
+  assert.equal(t('foo'), 'bar');
 });
 
-test('can lookup french translation', function() {
+test('can lookup french translation', function(assert) {
   application.defaultLocale = 'fr';
 
-  equal(t('foo'), 'baz');
+  assert.equal(t('foo'), 'baz');
 });
 
-test('can lookup in a path', function() {
+test('can lookup in a path', function(assert) {
   application.defaultLocale = 'en';
 
-  equal(t('home.title'), 'Welcome');
+  assert.equal(t('home.title'), 'Welcome');
 });
 
-test('can lookup in a path and does not always assume pluralization', function() {
+test('can lookup in a path and does not always assume pluralization', function(assert) {
   application.defaultLocale = 'en';
 
-  equal(t('home.namedTitle', 'Brian'), 'Welcome Brian');
+  assert.equal(t('home.namedTitle', 'Brian'), 'Welcome Brian');
 });
 
-test('interpolation', function() {
+test('interpolation', function(assert) {
   application.defaultLocale = 'en';
 
-  equal(t('number', 5), 'Number: 5');
+  assert.equal(t('number', 5), 'Number: 5');
 });
 
-test('pluralization', function() {
+test('pluralization', function(assert) {
   application.defaultLocale = 'en';
 
-  equal(t('friend', 1), '1 friend');
+  assert.equal(t('friend', 1), '1 friend');
 });
 
-test('pluralization with hyphenated locale', function() {
+test('pluralization with hyphenated locale', function(assert) {
   application.defaultLocale = 'en-us';
 
-  equal(t('friend', 1), '1 friend');
+  assert.equal(t('friend', 1), '1 friend');
 });
 
-test('prefers locale to defaultLocale', function() {
+test('prefers locale to defaultLocale', function(assert) {
   application.defaultLocale = 'en';
   application.locale = 'fr';
 
-  equal(t('foo'), 'baz');
+  assert.equal(t('foo'), 'baz');
 });
 
-test('can take value arguments', function() {
+test('can take value arguments', function(assert) {
   application.defaultLocale = 'en';
 
-  equal(t('name', 'John', 'Doe'), 'John Doe');
+  assert.equal(t('name', 'John', 'Doe'), 'John Doe');
 });
 
-test('can take array arguments', function() {
+test('can take array arguments', function(assert) {
   application.defaultLocale = 'en';
 
-  equal(t('name', ['John', 'Doe']), 'John Doe');
+  assert.equal(t('name', ['John', 'Doe']), 'John Doe');
 });
 
-test('throws on missing keys', function() {
+test('throws on missing keys', function(assert) {
   application.defaultLocale = 'en';
 
-  throws(function() { t('missing'); });
+  assert.throws(function() { t('missing'); });
 });
 
-test('throws on non-string values', function() {
+test('throws on non-string values', function(assert) {
   application.defaultLocale = 'en';
 
-  throws(function() { t('home'); });
+  assert.throws(function() { t('home'); });
 });
 
-test('can override the locale lookup handler', function() {
+test('can override the locale lookup handler', function(assert) {
   define('dummy/services/i18n', [], function() {
     return {
       getLocalizedPath: function(locale, path) {
@@ -203,10 +204,10 @@ test('can override the locale lookup handler', function() {
 
   application.defaultLocale = 'en';
 
-  equal(t('foo'), 'bizbar');
+  assert.equal(t('foo'), 'bizbar');
 });
 
-test('can override the format handler', function() {
+test('can override the format handler', function(assert) {
   define('dummy/services/i18n', [], function() {
     return {
       getLocalizedPath: function(locale, path) {
@@ -232,5 +233,5 @@ test('can override the format handler', function() {
 
   application.defaultLocale = 'en';
 
-  equal(t('foo'), 'barbiz');
+  assert.equal(t('foo'), 'barbiz');
 });

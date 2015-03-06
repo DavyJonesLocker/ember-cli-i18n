@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { module, test } from 'qunit';
 import { initialize } from 'dummy/initializers/t';
 
 var container, application;
@@ -20,7 +21,7 @@ module('T Initializer', {
   }
 });
 
-test('t gets injected into controllers', function() {
+test('t gets injected into controllers', function(assert) {
   var FooController = Ember.ObjectController.extend({
     foo: Ember.computed(function() {
       return this.t('foo');
@@ -29,10 +30,10 @@ test('t gets injected into controllers', function() {
   container.register('controller:foo', FooController);
 
   var fooControllerInstance = container.lookup('controller:foo');
-  equal(fooControllerInstance.get('foo'), 'bar');
+  assert.equal(fooControllerInstance.get('foo'), 'bar');
 });
 
-test('t gets injected into routes', function() {
+test('t gets injected into routes', function(assert) {
   var FooRoute = Ember.Route.extend({
     foo: Ember.computed(function() {
       return this.t('foo');
@@ -41,10 +42,10 @@ test('t gets injected into routes', function() {
   container.register('route:foo', FooRoute);
 
   var fooRouteInstance = container.lookup('route:foo');
-  equal(fooRouteInstance.get('foo'), 'bar');
+  assert.equal(fooRouteInstance.get('foo'), 'bar');
 });
 
-test('t gets injected into models', function() {
+test('t gets injected into models', function(assert) {
   var FooModel = DS.Model.extend({
     foo: Ember.computed(function() {
       return this.t('foo');
@@ -54,11 +55,11 @@ test('t gets injected into models', function() {
 
   Ember.run(function() {
     var fooModelInstance = container.lookup('store:main').createRecord('foo');
-    equal(fooModelInstance.get('foo'), 'bar');
+    assert.equal(fooModelInstance.get('foo'), 'bar');
   });
 });
 
-test('t gets injected into components', function() {
+test('t gets injected into components', function(assert) {
   var FooComponent = Ember.Component.extend({
     foo: Ember.computed(function() {
       return this.t('foo');
@@ -67,5 +68,5 @@ test('t gets injected into components', function() {
   container.register('component:foo', FooComponent);
 
   var fooComponentInstance = container.lookup('component:foo');
-  equal(fooComponentInstance.get('foo'), 'bar');
+  assert.equal(fooComponentInstance.get('foo'), 'bar');
 });

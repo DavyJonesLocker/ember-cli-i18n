@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { module, test } from 'qunit';
 import rules from 'ember-cli-i18n/rules/ja';
 import cldrTest from '../../helpers/cldr';
 
@@ -13,13 +14,13 @@ var ruleResults;
 
 module('CLDR Rules - Japanese ('+countryCode+')');
 
-test('other', function() {
-  cldrTest(0, 'other', rules, result, path, countryCode);
-  cldrTest(1, 'other', rules, result, path, countryCode);
-  cldrTest(2, 'other', rules, result, path, countryCode);
+test('other', function(assert) {
+  cldrTest(assert, 0, 'other', rules, result, path, countryCode);
+  cldrTest(assert, 1, 'other', rules, result, path, countryCode);
+  cldrTest(assert, 2, 'other', rules, result, path, countryCode);
 });
 
-test('assertion is thrown if no valid keys exist', function() {
+test('assertion is thrown if no valid keys exist', function(assert) {
   var badResult = {foo: 'bar'};
   var count = 0;
   var oldAssert = Ember.assert;
@@ -28,11 +29,11 @@ test('assertion is thrown if no valid keys exist', function() {
   };
 
   rules(0, badResult, path, countryCode);
-  equal(count, 1);
+  assert.equal(count, 1);
   Ember.assert = oldAssert;
 });
 
-test('assertion is thrown if non-numeric value is passed ', function() {
+test('assertion is thrown if non-numeric value is passed ', function(assert) {
   var count = 0;
   var oldAssert = Ember.assert;
   Ember.assert = function() {
@@ -40,6 +41,6 @@ test('assertion is thrown if non-numeric value is passed ', function() {
   };
 
   rules('0', result, path, countryCode);
-  equal(count, 1);
+  assert.equal(count, 1);
   Ember.assert = oldAssert;
 });
