@@ -140,6 +140,12 @@ If the value has interpolation keys you can pass those values:
 {{t colors colorOne colorTwo}}
 ```
 
+Passing localisation key to a component template:
+
+```handlebars
+{{x-toggle on=(t 'toggle.labels.on') off=(t 'toggle.labels.off')}}
+```
+
 #### Utility
 
 The `t` function can be used outside of templates as a utility function:
