@@ -8,8 +8,13 @@ export default function tHelper(params, hash, options, env) {
   var t = container.lookup('utils:t');
   var application = container.lookup('application:main');
 
+  var cache = "";
   var stream = new Stream(function() {
-    return t(path, params);
+    return cache;
+  });
+  t(path, params).then(function(val) {
+    cache = val;
+    stream.notify();
   });
 
   // bind any arguments that are Streams

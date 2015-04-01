@@ -29,9 +29,11 @@ function T(attributes) {
     result = service.applyPluralizationRules(result, locale, path, this.container, values, this);
 
     Ember.assert('Missing translation for key "' + path + '".', result);
-    Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(result) === 'string');
 
-    return service.fmt(result, readArray(values));
+    return Ember.RSVP.resolve(result).then(function(val) {
+      Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(val) === 'string');
+      return service.fmt(val, readArray(values));
+    })
   };
 }
 
