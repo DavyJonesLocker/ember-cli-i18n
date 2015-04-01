@@ -33,7 +33,7 @@ function T(attributes) {
     return Ember.RSVP.resolve(result).then(function(val) {
       Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(val) === 'string');
       return service.fmt(val, readArray(values));
-    })
+    });
   };
 }
 
