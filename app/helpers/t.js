@@ -12,23 +12,38 @@ export default function tHelper(params, hash, options, env) {
   var stream = new Stream(function() {
     return cache;
   });
-  t(path, params).then(function(val) {
-    cache = val;
-    stream.notify();
-  });
+
+  var update = function() {
+    var tRes = t(path, params);
+    if(typeof(tRes) === 'string') {
+      cache = tRes;
+      stream.notify();
+    } else if(typeof(tRes) === 'undefined') {
+      cache = '';
+      stream.notify();
+    } else if(typeof(tRes) === 'object' && typeof(tRes.then) === 'function') {
+      tRes.then(function(val) {
+        cache = val;
+        stream.notify();
+      });
+    } else {
+      throw 'unexpected type returned from t util';
+    }
+  };
+  update();
 
   // bind any arguments that are Streams
   for (var i = 0, l = params.length; i < l; i++) {
     var param = params[i];
     if(param && param.isStream){
-      param.subscribe(stream.notify, stream);
+      param.subscribe(update, this);
     };
   }
 
-  application.localeStream.subscribe(stream.notify, stream);
+  application.localeStream.subscribe(update, this);
 
   if (path.isStream) {
-    path.subscribe(stream.notify, stream);
+    path.subscribe(update, this);
   }
 
   return stream;

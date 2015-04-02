@@ -26,14 +26,21 @@ function T(attributes) {
 
     locale = service.resolveLocale(this.container, this);
     result = service.getLocalizedPath(locale, path, this.container, this);
-    result = service.applyPluralizationRules(result, locale, path, this.container, values, this);
 
     Ember.assert('Missing translation for key "' + path + '".', result);
 
-    return Ember.RSVP.resolve(result).then(function(val) {
-      Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(val) === 'string');
-      return service.fmt(val, readArray(values));
-    });
+    var self = this;
+    if(Ember.typeOf(result) === 'object' && Ember.typeOf(result.then) === 'function') {
+      return result.then(function(val) {
+        val = service.applyPluralizationRules(val, locale, path, self.container, values, self);
+        Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(val) === 'string');
+        return service.fmt(val, readArray(values));
+      });
+    } else {
+      result = service.applyPluralizationRules(result, locale, path, self.container, values, self);
+      Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(result) === 'string');
+      return service.fmt(result, readArray(values));
+    }
   };
 }
 

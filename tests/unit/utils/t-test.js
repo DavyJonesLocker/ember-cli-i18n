@@ -235,3 +235,44 @@ test('can override the format handler', function(assert) {
 
   assert.equal(t('foo'), 'barbiz');
 });
+
+
+test('locale lookup handler returns promise', function(assert) {
+  define('dummy/services/i18n', ['ember-cli-i18n/services/i18n'], function(s) {
+    s['default'].getLocalizedPath = function(locale, path) {
+      return new Ember.RSVP.Promise(function(resolve) {
+        resolve("foo-bar");
+      });
+    };
+    return s['default'];
+  });
+
+  application.defaultLocale = 'en';
+
+  t('foo').then(function(v) {
+    assert.equal(v, 'foo-bar');
+  });
+});
+
+test('promise pluralization', function(assert) {
+  define('dummy/services/i18n', ['ember-cli-i18n/services/i18n'], function(s) {
+    s['default'].getLocalizedPath = function(locale, path) {
+      return new Ember.RSVP.Promise(function(resolve) {
+        resolve({
+          one: '%@ friend',
+          other: '%@ friends'
+        });
+      });
+    };
+    return s['default'];
+  });
+
+  application.defaultLocale = 'en';
+
+  t('friend', 1).then(function(v) {
+    assert.equal(v, '1 friend');
+  });
+  t('friend', 5).then(function(v) {
+    assert.equal(v, '5 friends');
+  });
+});
