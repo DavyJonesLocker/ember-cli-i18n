@@ -33,7 +33,14 @@ function T(attributes) {
     Ember.assert('Missing translation for key "' + path + '".', result);
     Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(result) === 'string');
 
-    result = service.fmt(result, readArray(values));
+    var t = readArray(values);
+    if( htmlLocales === true ) {
+      t = t.map(function(value) {
+        return Ember.Handlebars.Utils.escapeExpression(value);
+      });
+    }
+
+    result = service.fmt(result, readArray(t));
 
     if( htmlLocales !== true ) {
       return result;

@@ -252,3 +252,10 @@ test('allow html in locales', function(assert) {
 
   assert.equal(typeof t('foo'), 'object');
 });
+
+test('escape interpolation values if htmlLocales are enabled', function(assert) {
+  application.defaultLocale = 'en';
+  application.htmlLocales = true;
+
+  assert.equal(t('name', '<s>foo</s>', '<u>bar</u>').toString(), '&lt;s&gt;foo&lt;/s&gt; &lt;u&gt;bar&lt;/u&gt;');
+});
