@@ -13,6 +13,8 @@ function T(attributes) {
     var service = this.container.lookupFactory('service:i18n');
     var result;
     var locale;
+    var application = this.container.lookup('application:main');
+    var htmlLocales = application.htmlLocales ? true : false;
 
     if (!Ember.isArray(values)) {
       values = Array.prototype.slice.call(arguments, 1);
@@ -31,7 +33,14 @@ function T(attributes) {
     Ember.assert('Missing translation for key "' + path + '".', result);
     Ember.assert('Translation for key "' + path + '" is not a string.', Ember.typeOf(result) === 'string');
 
-    return service.fmt(result, readArray(values));
+    result = service.fmt(result, readArray(values));
+
+    if( htmlLocales !== true ) {
+      return result;
+    }
+    else {
+      return Ember.String.htmlSafe( result );
+    } 
   };
 }
 

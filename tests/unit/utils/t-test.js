@@ -235,3 +235,20 @@ test('can override the format handler', function(assert) {
 
   assert.equal(t('foo'), 'barbiz');
 });
+
+test('escapes html as default', function(assert) {
+  application.defaultLocale = 'en';
+  
+  assert.equal(typeof t('foo'), 'string');
+
+  application.htmlLocales = false;
+  
+  assert.equal(typeof t('foo'), 'string');
+});
+
+test('allow html in locales', function(assert) {
+  application.defaultLocale = 'en';
+  application.htmlLocales = true;
+
+  assert.equal(typeof t('foo'), 'object');
+});
