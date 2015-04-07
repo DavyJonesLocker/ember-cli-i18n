@@ -24,6 +24,11 @@ if (window.QUnit) {
     }
   });
 
+  test('default locale exists', function(assert) {
+    assert.ok(Ember.isPresent(config.APP.defaultLocale, 'default locale is defined'));
+    assert.ok(typeof defaultLocale === 'object', 'default locale exist');
+  });
+
   test('locales all contain the same keys', function(assert) {
     var knownLocales = keys(locales);
     if (knownLocales.length === 1) {
