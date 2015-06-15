@@ -1,7 +1,7 @@
 import Stream from 'ember-cli-i18n/utils/stream';
 
 export default function tHelper(params, hash, options, env) {
-  var view = env.data.view;
+  var view = env.view;
   var path = params.shift();
 
   var container = view.container;
