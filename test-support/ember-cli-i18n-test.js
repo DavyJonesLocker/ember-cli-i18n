@@ -3,6 +3,26 @@
 import Ember from 'ember';
 import config from '../config/environment';
 
+var flattenObject = function(ob) {
+  var toReturn = {};
+  
+  for (var i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+    
+    if ((typeof ob[i]) == 'object') {
+      var flatObject = flattenObject(ob[i]);
+      for (var x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+        
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+};
+
 if (window.QUnit) {
   var keys = Ember.keys;
 
@@ -42,6 +62,9 @@ if (window.QUnit) {
       if (currentLocale === defaultLocale) {
         continue;
       }
+
+      currentLocale = flattenObject(currentLocale);
+      defaultLocale = flattenObject(defaultLocale);
 
       for (var translationKey in defaultLocale) {
         assert.ok(currentLocale[translationKey], '`' + translationKey + '` should exist in the `' + knownLocales[i] + '` locale.');
