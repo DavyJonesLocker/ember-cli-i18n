@@ -1,5 +1,9 @@
 # Ember CLI i18n
 
+# Deprecated!
+
+This library has been deprecated in favor of [ember-i18n >= 4.0.0](https://github.com/jamesarosen/ember-i18n)
+
 [![Build](https://travis-ci.org/dockyard/ember-cli-i18n.svg?branch=master)](https://travis-ci.org/dockyard/ember-cli-i18n)
 
 ## About ##
