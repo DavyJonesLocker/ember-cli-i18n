@@ -65,7 +65,7 @@ app
     └── en.js
 ```
 
-Then export a single POJO:
+Then export a single JavaScript object:
 
 ```javascript
 export default {
